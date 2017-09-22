@@ -124,16 +124,34 @@ int main(int argc, char** argv)
 	// ...
 // Comente a linha abaixo para testar o seu algoritmo
 // (Caso contrário, o programa tenta ler o resultado como um TERCEIRO parâmetro)
-#define DEMO
+//#define DEMO
 #ifdef DEMO
 	load(argv[3], &pic[2]);
 #else
     // Para valer, só aloca memória para a imagem de saída
 	pic[2].img = malloc(pic[1].width * pic[1].height * 3); // W x H x 3 bytes (RGB)
+
+
+    //É aqui que faz o trabalho
+	for(int i = 0; i<pic[2].width;i++) {
+        pic[2].img[i].r = 255;
+        pic[2].img[i].g = 0;
+        pic[2].img[i].b = 0;
+	}
+
+	for(int i = pic[2].width+1; i<2*pic[2].width;i++) {
+        pic[2].img[i].r = 0;
+        pic[2].img[i].g = 255;
+        pic[2].img[i].b = 0;
+	}
+
+
+
 #endif // DEMO
 
     // Cria textura para a imagem de saída
 	tex[2] = SOIL_create_OGL_texture((unsigned char*) pic[2].img, pic[2].width, pic[2].height, SOIL_LOAD_RGB, SOIL_CREATE_NEW_ID, 0);
+
 
 	// Entra no loop de eventos, não retorna
     glutMainLoop();
