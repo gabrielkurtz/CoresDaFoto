@@ -6,8 +6,6 @@
 	<string.h>
 	<stdio.h>
 
-1504289654 
-
 1504289654 /home/10049190/git/progswb2/trab/t1-172-987ui3sdhcg/transition/lib/SOIL/image_DXT.h
 
 1504289654 source:/home/10049190/git/progswb2/trab/t1-172-987ui3sdhcg/transition/lib/SOIL/image_helper.c
@@ -49,8 +47,6 @@
 	"stbi_DDS_aug.h"
 	"stbi_DDS_aug_c.h"
 
-1504289654 aug_c.h"
-
 1504289654 /home/10049190/git/progswb2/trab/t1-172-987ui3sdhcg/transition/lib/SOIL/stbi_DDS_aug.h
 
 1504289654 /home/10049190/git/progswb2/trab/t1-172-987ui3sdhcg/transition/lib/SOIL/stbi_DDS_aug_c.h
@@ -71,13 +67,9 @@
 1504289654 /home/10049190/git/progswb2/trab/t1-172-987ui3sdhcg/transition/include/GL/glut.h
 	"freeglut.h"
 
-1504289654 h"
-
 1504289654 /home/10049190/git/progswb2/trab/t1-172-987ui3sdhcg/transition/include/GL/freeglut.h
 	"freeglut_std.h"
 	"freeglut_ext.h"
-
-1504289654 ext.h"
 
 1504289654 /home/10049190/git/progswb2/trab/t1-172-987ui3sdhcg/transition/include/GL/freeglut_std.h
 	<windows.h>
@@ -249,23 +241,23 @@
 
 1504289654 c:\users\10049190\desktop\transition\soil.h
 
-1504289654 source:/home/16280132/CoresDaFoto/lib/SOIL/image_DXT.c
+1504289654 source:d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\lib\soil\image_dxt.c
 	"image_DXT.h"
 	<math.h>
 	<stdlib.h>
 	<string.h>
 	<stdio.h>
 
-1504289654 /home/16280132/CoresDaFoto/lib/SOIL/image_DXT.h
+1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\lib\soil\image_dxt.h
 
-1504289654 source:/home/16280132/CoresDaFoto/lib/SOIL/image_helper.c
+1504289654 source:d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\lib\soil\image_helper.c
 	"image_helper.h"
 	<stdlib.h>
 	<math.h>
 
-1504289654 /home/16280132/CoresDaFoto/lib/SOIL/image_helper.h
+1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\lib\soil\image_helper.h
 
-1504893241 source:/home/16280132/CoresDaFoto/lib/SOIL/SOIL.c
+1504893241 source:d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\lib\soil\soil.c
 	<windows.h>
 	<wingdi.h>
 	<GL/gl.h>
@@ -279,12 +271,12 @@
 	<stdlib.h>
 	<string.h>
 
-1504289654 /home/16280132/CoresDaFoto/lib/SOIL/SOIL.h
+1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\lib\soil\soil.h
 
-1504289654 /home/16280132/CoresDaFoto/lib/SOIL/stb_image_aug.h
+1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\lib\soil\stb_image_aug.h
 	<stdio.h>
 
-1504289654 source:/home/16280132/CoresDaFoto/lib/SOIL/stb_image_aug.c
+1504289654 source:d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\lib\soil\stb_image_aug.c
 	"stb_image_aug.h"
 	<math.h>
 	<string.h>
@@ -296,11 +288,11 @@
 	"stbi_DDS_aug.h"
 	"stbi_DDS_aug_c.h"
 
-1504289654 /home/16280132/CoresDaFoto/lib/SOIL/stbi_DDS_aug.h
+1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\lib\soil\stbi_dds_aug.h
 
-1504289654 /home/16280132/CoresDaFoto/lib/SOIL/stbi_DDS_aug_c.h
+1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\lib\soil\stbi_dds_aug_c.h
 
-1506122077 source:/home/16280132/CoresDaFoto/main.c
+1506451248 source:d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -313,19 +305,19 @@
 	<GL/glut.h>
 	"SOIL.h"
 
-1504289654 /home/16280132/CoresDaFoto/include/GL/glut.h
+1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\include\gl\glut.h
 	"freeglut.h"
 
-1504289654 /home/16280132/CoresDaFoto/include/GL/freeglut.h
+1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\include\gl\freeglut.h
 	"freeglut_std.h"
 	"freeglut_ext.h"
 
-1504289654 /home/16280132/CoresDaFoto/include/GL/freeglut_std.h
+1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\include\gl\freeglut_std.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glu.h>
 
-1504289654 /home/16280132/CoresDaFoto/include/GL/freeglut_ext.h
+1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\include\gl\freeglut_ext.h
 
-1504289654 /home/16280132/CoresDaFoto/SOIL.h
+1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\soil.h
 

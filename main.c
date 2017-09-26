@@ -145,13 +145,10 @@ int main(int argc, char** argv)
         pic[2].img[i].b = 0;
 	}
 
-
-
 #endif // DEMO
 
     // Cria textura para a imagem de saída
 	tex[2] = SOIL_create_OGL_texture((unsigned char*) pic[2].img, pic[2].width, pic[2].height, SOIL_LOAD_RGB, SOIL_CREATE_NEW_ID, 0);
-
 
 	// Entra no loop de eventos, não retorna
     glutMainLoop();
