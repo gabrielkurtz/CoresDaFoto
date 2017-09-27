@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>		// Para usar strings
+#include <math.h>
 
 #ifdef WIN32
 #include <windows.h>    // Apenas para Windows
@@ -132,18 +133,16 @@ int main(int argc, char** argv)
 	pic[2].img = malloc(pic[1].width * pic[1].height * 3); // W x H x 3 bytes (RGB)
 
 
-    //É aqui que faz o trabalho
-	for(int i = 0; i<pic[2].width;i++) {
-        pic[2].img[i].r = 255;
-        pic[2].img[i].g = 0;
-        pic[2].img[i].b = 0;
-	}
+///----------É aqui que faz o trabalho:
 
-	for(int i = pic[2].width+1; i<2*pic[2].width;i++) {
-        pic[2].img[i].r = 0;
-        pic[2].img[i].g = 255;
-        pic[2].img[i].b = 0;
-	}
+    int j=0;
+    for(int i=0; i<pic[1].width * pic[1].height; i++) {
+        j = pxProximo(i);
+        pic[2].img[i].r = pic[0].img[j].r;
+        pic[2].img[i].g = pic[0].img[j].g;
+        pic[2].img[i].b = pic[0].img[j].b;
+
+    }
 
 #endif // DEMO
 
@@ -153,6 +152,24 @@ int main(int argc, char** argv)
 	// Entra no loop de eventos, não retorna
     glutMainLoop();
 }
+
+int pxProximo(int i) {
+    double dist = 0;
+    for(int j=0; j < pic[0].width * pic[0].height; j++) {
+        if(pic[0].img[j].r != 0 && pic[0].img[j].g != 0 && pic[0].img[j].b != 0){
+            dist =  sqrt(pow(pic[1].img[i].r - pic[0].img[j].r, 2) +
+                         pow(pic[1].img[i].g - pic[0].img[j].g, 2) +
+                         pow(pic[1].img[i].b - pic[0].img[j].b, 2)
+                    );
+            if(dist < 60) {
+                return j;
+            }
+        }
+    }
+}
+
+/// --------------- Aqui termina nosso código.
+
 
 // Funcao de comparacao para qsort: ordena por R, G, B (desempate nessa ordem)
 int cmp(const void* elem1, const void* elem2)
