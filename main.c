@@ -135,6 +135,8 @@ int main(int argc, char** argv)
 
 ///----------É aqui que faz o trabalho:
 
+//int i=pic[0].width * pic[0].height; i>(pic[0].width * pic[0].height)-pic[0].width; i--
+
     int j=0;
     for(int i=0; i<pic[1].width * pic[1].height; i++) {
         j = pxProximo(i);
@@ -142,21 +144,30 @@ int main(int argc, char** argv)
         pic[2].img[i].g = pic[0].img[j].g;
         pic[2].img[i].b = pic[0].img[j].b;
 
+
+        pic[0].img[i].r = 255;
+        pic[0].img[i].g = 0;
+        pic[0].img[i].b = 0;
+
     }
+
+
 
 #endif // DEMO
 
     // Cria textura para a imagem de saída
 	tex[2] = SOIL_create_OGL_texture((unsigned char*) pic[2].img, pic[2].width, pic[2].height, SOIL_LOAD_RGB, SOIL_CREATE_NEW_ID, 0);
-
+    tex[0] = SOIL_create_OGL_texture((unsigned char*) pic[0].img, pic[0].width, pic[0].height, SOIL_LOAD_RGB, SOIL_CREATE_NEW_ID, 0);
 	// Entra no loop de eventos, não retorna
+	valida();
     glutMainLoop();
+
 }
 
 int pxProximo(int i) {
     double dist = 0;
     for(int j=0; j < pic[0].width * pic[0].height; j++) {
-        if(pic[0].img[j].r != 0 && pic[0].img[j].g != 0 && pic[0].img[j].b != 0){
+        if(pic[0].img[j].r != 255 && pic[0].img[j].g != 0 && pic[0].img[j].b != 0){
             dist =  sqrt(pow(pic[1].img[i].r - pic[0].img[j].r, 2) +
                          pow(pic[1].img[i].g - pic[0].img[j].g, 2) +
                          pow(pic[1].img[i].b - pic[0].img[j].b, 2)
@@ -166,6 +177,12 @@ int pxProximo(int i) {
             }
         }
     }
+
+     for(int j=0; j < pic[0].width * pic[0].height; j++) {
+        if(pic[0].img[j].r != 255 && pic[0].img[j].g != 0 && pic[0].img[j].b != 0){
+            return j;
+        }
+     }
 }
 
 /// --------------- Aqui termina nosso código.
