@@ -292,10 +292,11 @@
 
 1504289654 d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\lib\soil\stbi_dds_aug_c.h
 
-1506451464 source:d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\main.c
+1506785076 source:d:\carlos andré\faculdade\3º semestre\software básico\coresdafoto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<math.h>
 	<windows.h>
 	<OpenGL/gl.h>
 	<OpenGL/glu.h>
