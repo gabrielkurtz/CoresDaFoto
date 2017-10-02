@@ -65,6 +65,27 @@ void load(char* name, Img* pic)
     printf("Load: %d x %d x %d\n", pic->width, pic->height, chan);
 }
 
+// Funcao de comparacao para qsort: ordena por R, G, B (desempate nessa ordem)
+int cmp(const void* elem1, const void* elem2)
+{
+    RGB* ptr1 = (RGB*) elem1;
+    RGB* ptr2 = (RGB*) elem2;
+    unsigned char r1 = ptr1->r;
+    unsigned char r2 = ptr2->r;
+    unsigned char g1 = ptr1->g;
+    unsigned char g2 = ptr2->g;
+    unsigned char b1 = ptr1->b;
+    unsigned char b2 = ptr2->b;
+    int r = 0;
+    if(r1 < r2) r = -1;
+    else if(r1 > r2) r = 1;
+    else if(g1 < g2) r = -1;
+    else if(g1 > g2) r = 1;
+    else if(b1 < b2) r = -1;
+    else if(b1 > b2) r = 1;
+    return r;
+}
+
 int main(int argc, char** argv)
 {
     if(argc < 2) {
@@ -142,22 +163,26 @@ int main(int argc, char** argv)
         pxUsados[i] = 0;
     }
 
-
     int size = width * height;
     // Aloca memória para os dois arrays
     RGB* aux0 = malloc(size*3);
-    RGB* aux1 = malloc(size*3);
     // Copia os pixels originais
     memcpy(aux0, pic[0].img, size*3);
-    memcpy(aux1, pic[1].img, size*3);
+    qsort(aux0, size, sizeof(RGB), cmp);
 
+
+    int chaveR[256];
+    for(int i=0; i < pic[0].height * pic[0].width; i++) {
+        printf(" %d ", aux0[i].r);
+    }
 
     int j=0;
-    for(int i=0; i<(pic[1].width * pic[1].height); i++) {
-        j = pxProximo(i, pxUsados);
-        pic[2].img[i].r = pic[0].img[j].r;
-        pic[2].img[i].g = pic[0].img[j].g;
-        pic[2].img[i].b = pic[0].img[j].b;
+    for(int i=0; i<size; i++) {
+        j = pxProximo(i, pxUsados, aux0);
+        //printf(" %d ", i);
+        pic[2].img[i].r = aux0[j].r;
+        pic[2].img[i].g = aux0[j].g;
+        pic[2].img[i].b = aux0[j].b;
         pxUsados[j] = 1;
     }
 
@@ -170,21 +195,24 @@ int main(int argc, char** argv)
     glutMainLoop();
 }
 
-int pxProximo(int i, int pxUsados[]) {
+int pxProximo(int i, int pxUsados[], RGB* aux0) {
+    //int partes = pic[1].img.r / 4;
+
     double dist = 0;
-    for(int j=0; j < (pic[0].width * pic[0].height); j++) {
+    for(int j = 0; j < width*height; j++) {
         if(pxUsados[j] == 0){
-            dist =  sqrt(pow(pic[1].img[i].r - pic[0].img[j].r, 2) +
-                         pow(pic[1].img[i].g - pic[0].img[j].g, 2) +
-                         pow(pic[1].img[i].b - pic[0].img[j].b, 2)
+            dist =  sqrt(pow(pic[1].img[i].r - aux0[j].r, 2) +
+                         pow(pic[1].img[i].g - aux0[j].g, 2) +
+                         pow(pic[1].img[i].b - aux0[j].b, 2)
                     );
-            if(dist < 80) {
+
+            if(dist < 180) {
                 return j;
             }
         }
     }
 
-     for(int j=0; j < (pic[0].width * pic[0].height); j++) {
+     for(int j=width*height; j > 0; j--) {
         if(pxUsados[j] == 0){
             return j;
         }
@@ -194,26 +222,7 @@ int pxProximo(int i, int pxUsados[]) {
 /// --------------- Aqui termina nosso código.
 
 
-// Funcao de comparacao para qsort: ordena por R, G, B (desempate nessa ordem)
-int cmp(const void* elem1, const void* elem2)
-{
-    RGB* ptr1 = (RGB*) elem1;
-    RGB* ptr2 = (RGB*) elem2;
-    unsigned char r1 = ptr1->r;
-    unsigned char r2 = ptr2->r;
-    unsigned char g1 = ptr1->g;
-    unsigned char g2 = ptr2->g;
-    unsigned char b1 = ptr1->b;
-    unsigned char b2 = ptr2->b;
-    int r = 0;
-    if(r1 < r2) r = -1;
-    else if(r1 > r2) r = 1;
-    else if(g1 < g2) r = -1;
-    else if(g1 > g2) r = 1;
-    else if(b1 < b2) r = -1;
-    else if(b1 > b2) r = 1;
-    return r;
-}
+
 
 // Verifica se o algoritmo foi aplicado corretamente:
 // Ordena os pixels da imagem origem e de saída por R, G e B;
