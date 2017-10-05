@@ -170,16 +170,10 @@ int main(int argc, char** argv)
     memcpy(aux0, pic[0].img, size*3);
     qsort(aux0, size, sizeof(RGB), cmp);
 
-
-    int chaveR[256];
-    for(int i=0; i < pic[0].height * pic[0].width; i++) {
-        printf(" %d ", aux0[i].r);
-    }
-
     int j=0;
     for(int i=0; i<size; i++) {
         j = pxProximo(i, pxUsados, aux0);
-        //printf(" %d ", i);
+        printf(" %d ", i);
         pic[2].img[i].r = aux0[j].r;
         pic[2].img[i].g = aux0[j].g;
         pic[2].img[i].b = aux0[j].b;
@@ -197,22 +191,37 @@ int main(int argc, char** argv)
 
 int pxProximo(int i, int pxUsados[], RGB* aux0) {
     //int partes = pic[1].img.r / 4;
-
     double dist = 0;
-    for(int j = 0; j < width*height; j++) {
-        if(pxUsados[j] == 0){
-            dist =  sqrt(pow(pic[1].img[i].r - aux0[j].r, 2) +
-                         pow(pic[1].img[i].g - aux0[j].g, 2) +
-                         pow(pic[1].img[i].b - aux0[j].b, 2)
-                    );
+    int j;
+    if(i<(width*height) / 2){
+        for(j = 0; j < width*height; j++) {
+            if(pxUsados[j] == 0){
+                dist =  sqrt(pow(pic[1].img[i].r - aux0[j].r, 2) +
+                             pow(pic[1].img[i].g - aux0[j].g, 2) +
+                             pow(pic[1].img[i].b - aux0[j].b, 2)
+                        );
 
-            if(dist < 180) {
-                return j;
+                if(dist < 200) {
+                    return j;
+                }
+            }
+        }
+    } else {
+        for(j=(width*height) - 1; j >= 0 ; j--) {
+            if(pxUsados[j] == 0){
+                dist =  sqrt(pow(pic[1].img[i].r - aux0[j].r, 2) +
+                             pow(pic[1].img[i].g - aux0[j].g, 2) +
+                             pow(pic[1].img[i].b - aux0[j].b, 2)
+                        );
+
+                if(dist < 200) {
+                    return j;
+                }
             }
         }
     }
 
-     for(int j=width*height; j > 0; j--) {
+     for(j=(width*height)-1; j >= 0; j--) {
         if(pxUsados[j] == 0){
             return j;
         }
