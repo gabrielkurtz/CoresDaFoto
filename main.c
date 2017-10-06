@@ -155,23 +155,24 @@ int main(int argc, char** argv)
 	pic[2].img = malloc(pic[1].width * pic[1].height * 3); // W x H x 3 bytes (RGB)
 
 
-///----------É aqui que faz o trabalho:
-
-//int i=pic[0].width * pic[0].height; i>(pic[0].width * pic[0].height)-pic[0].width; i--
+///-------------------------------------------------INÍCIO--------------------------------------------------------------------------
 
     clock_t start, end;
     double cpu_time_used;
 
+///Cria array de int que simula a utilização ou não de px da pic 0. Valores podem assumir 1(usado) e 0(não usado).
     int pxUsados[pic[0].height * pic[0].width];
+///Limpa memória
     for(int i=0; i < pic[0].height * pic[0].width; i++) {
         pxUsados[i] = 0;
     }
 
     int size = width * height;
-    // Aloca memória para os dois arrays
+/// Aloca memória para o array auxiliar cópia da pic 0
     RGB* aux0 = malloc(size*3);
-    // Copia os pixels originais
+/// Copia os pixels originais
     memcpy(aux0, pic[0].img, size*3);
+///Ordena o array auxiliar
     qsort(aux0, size, sizeof(RGB), cmp);
 
     int j=0;
@@ -184,7 +185,7 @@ int main(int argc, char** argv)
     double tempoMaximoEstimado = 240.0;
 
     for(int c=0; c<espaco; c++){
-        printf("Iniciando Loop %d de %d - Tolerancia: %d\n", (c+1), espaco, tolerancia);
+        printf("Iniciando iteracao %d de %d - Tolerancia: %d\n", (c+1), espaco, tolerancia);
         clock_t startLoop, endLoop;
         double tempoAtual;
 
@@ -192,7 +193,6 @@ int main(int argc, char** argv)
 
         for(int i=c; i<size; i+=espaco) {
             j = pxProximo(i, pxUsados, aux0, tolerancia);
-//        printf(" %d ", i);
             pic[2].img[i].r = aux0[j].r;
             pic[2].img[i].g = aux0[j].g;
             pic[2].img[i].b = aux0[j].b;
@@ -230,13 +230,9 @@ int main(int argc, char** argv)
 	// Entra no loop de eventos, não retorna
 	valida();
     glutMainLoop();
-
-
-
 }
 
 int pxProximo(int i, int pxUsados[], RGB* aux0, int toler) {
-    //int partes = pic[1].img.r / 4;
     double dist = 0;
     int j;
 
@@ -260,13 +256,9 @@ int pxProximo(int i, int pxUsados[], RGB* aux0, int toler) {
             return j;
         }
      }
-
-
-
-
 }
 
-/// --------------- Aqui termina nosso código.
+///----------------------------------------------------------FIM--------------------------------------------------------------------------
 
 
 

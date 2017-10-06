@@ -535,3 +535,34 @@
 
 1507289325 e:\faculdade\t1 c\coresdafoto\soil.h
 
+1507299428 source:d:\carlos andré\faculdade\3º semestre\software básico\t1\coresdafoto\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<time.h>
+	<windows.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GLUT/glut.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+	"SOIL.h"
+
+1507215413 d:\carlos andré\faculdade\3º semestre\software básico\t1\coresdafoto\include\gl\glut.h
+	"freeglut.h"
+
+1507215413 d:\carlos andré\faculdade\3º semestre\software básico\t1\coresdafoto\include\gl\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1507215413 d:\carlos andré\faculdade\3º semestre\software básico\t1\coresdafoto\include\gl\freeglut_std.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1507215413 d:\carlos andré\faculdade\3º semestre\software básico\t1\coresdafoto\include\gl\freeglut_ext.h
+
+1507215413 d:\carlos andré\faculdade\3º semestre\software básico\t1\coresdafoto\soil.h
+
