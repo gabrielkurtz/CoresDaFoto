@@ -1,1 +1,0 @@
-gcc main.c lib/SOIL/*.c -lm -lGL -lGLU -lglut -o transition
