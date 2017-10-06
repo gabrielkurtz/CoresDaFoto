@@ -171,9 +171,62 @@ int main(int argc, char** argv)
     qsort(aux0, size, sizeof(RGB), cmp);
 
     int j=0;
-    for(int i=0; i<size; i++) {
+    for(int i=0; i<size; i+=7) {
         j = pxProximo(i, pxUsados, aux0);
-        printf(" %d ", i);
+//        printf(" %d ", i);
+        pic[2].img[i].r = aux0[j].r;
+        pic[2].img[i].g = aux0[j].g;
+        pic[2].img[i].b = aux0[j].b;
+        pxUsados[j] = 1;
+    }
+    for(int i=1; i<size; i+=7) {
+        j = pxProximo(i, pxUsados, aux0);
+//        printf(" %d ", i);
+        pic[2].img[i].r = aux0[j].r;
+        pic[2].img[i].g = aux0[j].g;
+        pic[2].img[i].b = aux0[j].b;
+        pxUsados[j] = 1;
+    }
+
+    for(int i=2; i<size; i+=7) {
+        j = pxProximo(i, pxUsados, aux0);
+//        printf(" %d ", i);
+        pic[2].img[i].r = aux0[j].r;
+        pic[2].img[i].g = aux0[j].g;
+        pic[2].img[i].b = aux0[j].b;
+        pxUsados[j] = 1;
+    }
+
+    for(int i=3; i<size; i+=7) {
+        j = pxProximo(i, pxUsados, aux0);
+//        printf(" %d ", i);
+        pic[2].img[i].r = aux0[j].r;
+        pic[2].img[i].g = aux0[j].g;
+        pic[2].img[i].b = aux0[j].b;
+        pxUsados[j] = 1;
+    }
+
+    for(int i=4; i<size; i+=7) {
+        j = pxProximo(i, pxUsados, aux0);
+//        printf(" %d ", i);
+        pic[2].img[i].r = aux0[j].r;
+        pic[2].img[i].g = aux0[j].g;
+        pic[2].img[i].b = aux0[j].b;
+        pxUsados[j] = 1;
+    }
+
+    for(int i=5; i<size; i+=7) {
+        j = pxProximo(i, pxUsados, aux0);
+//        printf(" %d ", i);
+        pic[2].img[i].r = aux0[j].r;
+        pic[2].img[i].g = aux0[j].g;
+        pic[2].img[i].b = aux0[j].b;
+        pxUsados[j] = 1;
+    }
+
+    for(int i=6; i<size; i+=7) {
+        j = pxProximo(i, pxUsados, aux0);
+//        printf(" %d ", i);
         pic[2].img[i].r = aux0[j].r;
         pic[2].img[i].g = aux0[j].g;
         pic[2].img[i].b = aux0[j].b;
