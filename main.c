@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>		// Para usar strings
 #include <math.h>
+#include <time.h>
 
 #ifdef WIN32
 #include <windows.h>    // Apenas para Windows
@@ -171,67 +172,67 @@ int main(int argc, char** argv)
     qsort(aux0, size, sizeof(RGB), cmp);
 
     int j=0;
-    for(int i=0; i<size; i+=7) {
-        j = pxProximo(i, pxUsados, aux0);
+    int tolerancia = 0;
+    int espaco = 7;
+
+
+
+    for(int c=0; c<espaco; c++){
+        printf("Iniciando Loop %d de %d\n", (c+1), espaco);
+        clock_t startLoop, endLoop;
+        double cpu_time_used_Loop;
+
+        startLoop = clock();
+        if(c==0){
+            tolerancia = 250;
+        }
+        else if(c==1){
+            tolerancia = 250;
+        }
+        else if(c==2){
+            tolerancia = 250;
+        }
+        else if(c==3){
+            tolerancia = 300;
+        }
+        else if(c==4){
+            tolerancia = 400;
+        }
+        else if(c==5){
+            tolerancia = 500;
+        }
+        else if(c==6){
+            tolerancia = 600;
+        }
+        else{
+            tolerancia = 700;
+        }
+
+        for(int i=c; i<size; i+=espaco) {
+            j = pxProximo(i, pxUsados, aux0, tolerancia);
 //        printf(" %d ", i);
-        pic[2].img[i].r = aux0[j].r;
-        pic[2].img[i].g = aux0[j].g;
-        pic[2].img[i].b = aux0[j].b;
-        pxUsados[j] = 1;
-    }
-    for(int i=1; i<size; i+=7) {
-        j = pxProximo(i, pxUsados, aux0);
-//        printf(" %d ", i);
-        pic[2].img[i].r = aux0[j].r;
-        pic[2].img[i].g = aux0[j].g;
-        pic[2].img[i].b = aux0[j].b;
-        pxUsados[j] = 1;
+            pic[2].img[i].r = aux0[j].r;
+            pic[2].img[i].g = aux0[j].g;
+            pic[2].img[i].b = aux0[j].b;
+            aux0[j].r = 0;
+            aux0[j].g = 0;
+            aux0[j].b = 0;
+            pxUsados[j] = 1;
+        }
+
+        endLoop = clock();
+        cpu_time_used_Loop = ((double) (endLoop - startLoop)) / CLOCKS_PER_SEC;
+        printf("Tempo: %f segundos\n", cpu_time_used_Loop);
+
+        qsort(aux0, size, sizeof(RGB), cmp);
+
+ //       for(int c=0; c<width*height; c++){
+ //           if(pxUsados[c]==1 && aux0[c].r==0 && aux0[c].g==0 && aux0[c].b==0){
+ //               pxUsados[c] == 2;
+ //           }
+ //       }
     }
 
-    for(int i=2; i<size; i+=7) {
-        j = pxProximo(i, pxUsados, aux0);
-//        printf(" %d ", i);
-        pic[2].img[i].r = aux0[j].r;
-        pic[2].img[i].g = aux0[j].g;
-        pic[2].img[i].b = aux0[j].b;
-        pxUsados[j] = 1;
-    }
-
-    for(int i=3; i<size; i+=7) {
-        j = pxProximo(i, pxUsados, aux0);
-//        printf(" %d ", i);
-        pic[2].img[i].r = aux0[j].r;
-        pic[2].img[i].g = aux0[j].g;
-        pic[2].img[i].b = aux0[j].b;
-        pxUsados[j] = 1;
-    }
-
-    for(int i=4; i<size; i+=7) {
-        j = pxProximo(i, pxUsados, aux0);
-//        printf(" %d ", i);
-        pic[2].img[i].r = aux0[j].r;
-        pic[2].img[i].g = aux0[j].g;
-        pic[2].img[i].b = aux0[j].b;
-        pxUsados[j] = 1;
-    }
-
-    for(int i=5; i<size; i+=7) {
-        j = pxProximo(i, pxUsados, aux0);
-//        printf(" %d ", i);
-        pic[2].img[i].r = aux0[j].r;
-        pic[2].img[i].g = aux0[j].g;
-        pic[2].img[i].b = aux0[j].b;
-        pxUsados[j] = 1;
-    }
-
-    for(int i=6; i<size; i+=7) {
-        j = pxProximo(i, pxUsados, aux0);
-//        printf(" %d ", i);
-        pic[2].img[i].r = aux0[j].r;
-        pic[2].img[i].g = aux0[j].g;
-        pic[2].img[i].b = aux0[j].b;
-        pxUsados[j] = 1;
-    }
 
 #endif // DEMO
 
@@ -242,24 +243,33 @@ int main(int argc, char** argv)
     glutMainLoop();
 }
 
-int pxProximo(int i, int pxUsados[], RGB* aux0) {
+int pxProximo(int i, int pxUsados[], RGB* aux0, int toler) {
     //int partes = pic[1].img.r / 4;
     double dist = 0;
     int j;
-    if(i<(width*height) / 2){
+    if(i<(width*height)){
         for(j = 0; j < width*height; j++) {
-            if(pxUsados[j] == 0){
+//            if(pxUsados[j] == 2){
+//                while(j>0){
+//                    j--;
+//                    if(pxUsados[j]==0){
+//                        return j;
+//                    }
+//                }
+//            }
+            if(pxUsados[j]==0){
                 dist =  sqrt(pow(pic[1].img[i].r - aux0[j].r, 2) +
                              pow(pic[1].img[i].g - aux0[j].g, 2) +
                              pow(pic[1].img[i].b - aux0[j].b, 2)
                         );
 
-                if(dist < 200) {
+                if(dist < toler) {
                     return j;
                 }
             }
         }
-    } else {
+    }
+/*    else {
         for(j=(width*height) - 1; j >= 0 ; j--) {
             if(pxUsados[j] == 0){
                 dist =  sqrt(pow(pic[1].img[i].r - aux0[j].r, 2) +
@@ -273,12 +283,16 @@ int pxProximo(int i, int pxUsados[], RGB* aux0) {
             }
         }
     }
-
+*/
      for(j=(width*height)-1; j >= 0; j--) {
         if(pxUsados[j] == 0){
             return j;
         }
      }
+
+
+
+
 }
 
 /// --------------- Aqui termina nosso código.
