@@ -175,15 +175,13 @@ int main(int argc, char** argv)
     qsort(aux0, size, sizeof(RGB), cmp);
 
     int j=0;
-    int tolerancia = 60;
-    int espaco = 47;
+    int tolerancia = 100;
+    int espaco = 37;
     if(width%espaco==0){
         espaco = espaco+1;
     }
 
     double tempoMaximoEstimado = 240.0;
-
-    double tempoAnterior;
 
     for(int c=0; c<espaco; c++){
         printf("Iniciando Loop %d de %d - Tolerancia: %d\n", (c+1), espaco, tolerancia);
@@ -214,11 +212,11 @@ int main(int argc, char** argv)
             tolerancia += 5;
         }
         if(tempoAtual*espaco>tempoMaximoEstimado*2){
-            tolerancia += 5;
+            tolerancia += 10;
         }
-
-        tempoAnterior = ((double) (endLoop - startLoop)) / CLOCKS_PER_SEC;
-
+        if(tolerancia>135){
+            tolerancia = 135;
+        }
     }
 
     end = clock();
@@ -241,20 +239,12 @@ int pxProximo(int i, int pxUsados[], RGB* aux0, int toler) {
     //int partes = pic[1].img.r / 4;
     double dist = 0;
     int j;
-    int x = 0;
-    while(aux0[x].r>pic[1].img[i].r){
-        x+=width*height/1000;
-    }
-    if(x>width*height/500){
-        x = x - width*height/500;
-    }
-    else {
-        x = 0;
-    }
+
     if(i<width*height){
-        for(j = x; j < width*height; j++) {
+        for(j = 0; j < width*height; j++) {
             if(pxUsados[j]==0){
-                dist =  sqrt(pow(pic[1].img[i].g - aux0[j].g, 2) +
+                dist =  sqrt(pow(pic[1].img[i].r - aux0[j].r, 2) +
+                             pow(pic[1].img[i].g - aux0[j].g, 2) +
                              pow(pic[1].img[i].b - aux0[j].b, 2)
                         );
 
