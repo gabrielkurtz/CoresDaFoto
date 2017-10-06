@@ -159,6 +159,9 @@ int main(int argc, char** argv)
 
 //int i=pic[0].width * pic[0].height; i>(pic[0].width * pic[0].height)-pic[0].width; i--
 
+    clock_t start, end;
+    double cpu_time_used;
+
     int pxUsados[pic[0].height * pic[0].width];
     for(int i=0; i < pic[0].height * pic[0].width; i++) {
         pxUsados[i] = 0;
@@ -175,8 +178,6 @@ int main(int argc, char** argv)
     int tolerancia = 0;
     int espaco = 7;
 
-
-
     for(int c=0; c<espaco; c++){
         printf("Iniciando Loop %d de %d\n", (c+1), espaco);
         clock_t startLoop, endLoop;
@@ -184,28 +185,28 @@ int main(int argc, char** argv)
 
         startLoop = clock();
         if(c==0){
-            tolerancia = 250;
+            tolerancia = 130;
         }
         else if(c==1){
-            tolerancia = 250;
+            tolerancia = 140;
         }
         else if(c==2){
-            tolerancia = 250;
+            tolerancia = 150;
         }
         else if(c==3){
-            tolerancia = 300;
+            tolerancia = 160;
         }
         else if(c==4){
-            tolerancia = 400;
+            tolerancia = 170;
         }
         else if(c==5){
-            tolerancia = 500;
+            tolerancia = 180;
         }
         else if(c==6){
-            tolerancia = 600;
+            tolerancia = 190;
         }
         else{
-            tolerancia = 700;
+            tolerancia = 200;
         }
 
         for(int i=c; i<size; i+=espaco) {
@@ -214,9 +215,6 @@ int main(int argc, char** argv)
             pic[2].img[i].r = aux0[j].r;
             pic[2].img[i].g = aux0[j].g;
             pic[2].img[i].b = aux0[j].b;
-            aux0[j].r = 0;
-            aux0[j].g = 0;
-            aux0[j].b = 0;
             pxUsados[j] = 1;
         }
 
@@ -224,7 +222,6 @@ int main(int argc, char** argv)
         cpu_time_used_Loop = ((double) (endLoop - startLoop)) / CLOCKS_PER_SEC;
         printf("Tempo: %f segundos\n", cpu_time_used_Loop);
 
-        qsort(aux0, size, sizeof(RGB), cmp);
 
  //       for(int c=0; c<width*height; c++){
  //           if(pxUsados[c]==1 && aux0[c].r==0 && aux0[c].g==0 && aux0[c].b==0){
@@ -233,6 +230,9 @@ int main(int argc, char** argv)
  //       }
     }
 
+    end = clock();
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    printf("Tempo Total do Aplicativo: %f segundos\n", cpu_time_used);
 
 #endif // DEMO
 
@@ -241,22 +241,27 @@ int main(int argc, char** argv)
 	// Entra no loop de eventos, não retorna
 	valida();
     glutMainLoop();
+
+
+
 }
 
 int pxProximo(int i, int pxUsados[], RGB* aux0, int toler) {
     //int partes = pic[1].img.r / 4;
     double dist = 0;
     int j;
-    if(i<(width*height)){
-        for(j = 0; j < width*height; j++) {
-//            if(pxUsados[j] == 2){
-//                while(j>0){
-//                    j--;
-//                    if(pxUsados[j]==0){
-//                        return j;
-//                    }
-//                }
-//            }
+    int x = 0;
+    while(aux0[x].r>pic[1].img[i].r){
+        x+=width*height/1000;
+    }
+    if(x>width*height/1000){
+        x = x - width*height/1000;
+    }
+    else {
+        x = 0;
+    }
+    if(i<width*height){
+        for(j = x; j < width*height; j++) {
             if(pxUsados[j]==0){
                 dist =  sqrt(pow(pic[1].img[i].r - aux0[j].r, 2) +
                              pow(pic[1].img[i].g - aux0[j].g, 2) +
@@ -269,22 +274,8 @@ int pxProximo(int i, int pxUsados[], RGB* aux0, int toler) {
             }
         }
     }
-/*    else {
-        for(j=(width*height) - 1; j >= 0 ; j--) {
-            if(pxUsados[j] == 0){
-                dist =  sqrt(pow(pic[1].img[i].r - aux0[j].r, 2) +
-                             pow(pic[1].img[i].g - aux0[j].g, 2) +
-                             pow(pic[1].img[i].b - aux0[j].b, 2)
-                        );
 
-                if(dist < 200) {
-                    return j;
-                }
-            }
-        }
-    }
-*/
-     for(j=(width*height)-1; j >= 0; j--) {
+     for(j=width*height-1; j >= 0; j--) {
         if(pxUsados[j] == 0){
             return j;
         }
