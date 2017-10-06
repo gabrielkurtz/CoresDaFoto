@@ -175,40 +175,64 @@ int main(int argc, char** argv)
     qsort(aux0, size, sizeof(RGB), cmp);
 
     int j=0;
-    int tolerancia = 0;
-    int espaco = 7;
+    int tolerancia = 100;
+    int espaco = 31;
+    if(width%espaco==0){
+        espaco = espaco+1;
+    }
+
+    double tempoAnterior;
 
     for(int c=0; c<espaco; c++){
-        printf("Iniciando Loop %d de %d\n", (c+1), espaco);
+        printf("Iniciando Loop %d de %d - Tolerancia: %d\n", (c+1), espaco, tolerancia);
         clock_t startLoop, endLoop;
-        double cpu_time_used_Loop;
+        double tempoAtual;
 
         startLoop = clock();
-        if(c==0){
-            tolerancia = 130;
+/*        if(c==0){
+            tolerancia = 90;
         }
         else if(c==1){
-            tolerancia = 140;
+            tolerancia = 90;
         }
         else if(c==2){
-            tolerancia = 150;
+            tolerancia = 90;
         }
         else if(c==3){
-            tolerancia = 160;
+            tolerancia = 90;
         }
         else if(c==4){
-            tolerancia = 170;
+            tolerancia = 90;
         }
         else if(c==5){
-            tolerancia = 180;
+            tolerancia = 90;
         }
         else if(c==6){
-            tolerancia = 190;
+            tolerancia = 100;
         }
+        else if(c==7){
+            tolerancia = 110;
+        }
+        else if(c==8){
+            tolerancia = 125;
+        }
+        else if(c==9){
+            tolerancia = 150;
+        }
+        else if(c==10){
+            tolerancia = 150;
+        }
+        else if(c==11){
+            tolerancia = 150;
+        }
+        else if(c==12){
+            tolerancia = 150;
+        }
+
         else{
             tolerancia = 200;
         }
-
+*/
         for(int i=c; i<size; i+=espaco) {
             j = pxProximo(i, pxUsados, aux0, tolerancia);
 //        printf(" %d ", i);
@@ -219,8 +243,14 @@ int main(int argc, char** argv)
         }
 
         endLoop = clock();
-        cpu_time_used_Loop = ((double) (endLoop - startLoop)) / CLOCKS_PER_SEC;
-        printf("Tempo: %f segundos\n", cpu_time_used_Loop);
+        tempoAtual = ((double) (endLoop - startLoop)) / CLOCKS_PER_SEC;
+        printf("Tempo: %f segundos\n", tempoAtual);
+
+        if(tempoAtual>tempoAnterior){
+            tolerancia += 10;
+        }
+
+        tempoAnterior = ((double) (endLoop - startLoop)) / CLOCKS_PER_SEC;
 
 
  //       for(int c=0; c<width*height; c++){
@@ -263,8 +293,7 @@ int pxProximo(int i, int pxUsados[], RGB* aux0, int toler) {
     if(i<width*height){
         for(j = x; j < width*height; j++) {
             if(pxUsados[j]==0){
-                dist =  sqrt(pow(pic[1].img[i].r - aux0[j].r, 2) +
-                             pow(pic[1].img[i].g - aux0[j].g, 2) +
+                dist =  sqrt(pow(pic[1].img[i].g - aux0[j].g, 2) +
                              pow(pic[1].img[i].b - aux0[j].b, 2)
                         );
 
